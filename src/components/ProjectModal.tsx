@@ -38,25 +38,25 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
       <div
         id="project-detail-modal-container"
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-4xl bg-neutral-900 border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[90vh] flex flex-col"
+        className="relative w-full max-w-3xl lg:max-w-4xl bg-neutral-900 border border-neutral-800/90 rounded-2xl shadow-2xl overflow-y-auto max-h-[92vh] my-auto flex flex-col"
       >
         {/* Modal Header Banner with image */}
-        <div className="relative h-64 sm:h-80 w-full overflow-hidden bg-neutral-950 flex-shrink-0">
+        <div className="relative h-48 sm:h-60 md:h-72 w-full overflow-hidden bg-neutral-950 flex-shrink-0">
           <img
             src={caseStudy.image}
             alt={caseStudy.title}
             className="w-full h-full object-cover object-center brightness-90"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent pointer-events-none" />
 
           {/* Top Actions */}
-          <div className="absolute top-5 right-5 flex items-center gap-2 z-10">
+          <div className="absolute top-4 right-4 flex items-center gap-2 z-20">
             {caseStudy.liveUrl && (
               <a
                 href={caseStudy.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-950/80 hover:bg-neutral-900 text-neutral-200 hover:text-white border border-neutral-700/80 text-xs font-mono transition-all no-underline shadow-md"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-neutral-950/85 hover:bg-neutral-900 text-neutral-200 hover:text-white border border-neutral-700/80 text-xs font-mono transition-all no-underline shadow-lg backdrop-blur-md"
               >
                 <span>Live Site</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -65,7 +65,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             <button
               id="close-case-study-modal-btn"
               onClick={onClose}
-              className="p-2 rounded-full bg-neutral-950/80 text-neutral-300 hover:text-white hover:bg-neutral-900 border border-neutral-800 transition-colors cursor-pointer"
+              className="p-2 rounded-full bg-neutral-950/85 text-neutral-300 hover:text-white hover:bg-neutral-900 border border-neutral-800 transition-colors cursor-pointer shadow-lg backdrop-blur-md"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -73,55 +73,73 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
           </div>
 
           {/* Title lockup */}
-          <div className="absolute bottom-6 left-6 right-6">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="px-3 py-1 rounded-full text-xs font-mono uppercase bg-neutral-950/90 text-neutral-200 border border-neutral-700/80">
+          <div className="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 pointer-events-none">
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
+              <span className="px-3 py-1 rounded-full text-xs font-mono uppercase bg-neutral-950/90 text-neutral-200 border border-neutral-700/80 font-medium">
                 {caseStudy.categoryLabel}
               </span>
-              <span className="text-xs font-mono text-emerald-400">
+              <span className="text-xs font-mono text-emerald-400 font-medium">
                 {caseStudy.client}
               </span>
             </div>
-            <h2 className="font-display text-2xl sm:text-4xl font-bold text-neutral-100 uppercase">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-100 uppercase tracking-tight">
               {caseStudy.title}
             </h2>
-            <p className="mt-1 text-sm sm:text-base text-neutral-300 max-w-2xl">
+            <p className="mt-1 text-xs sm:text-sm text-neutral-300 max-w-2xl leading-relaxed">
               {caseStudy.tagline}
             </p>
           </div>
         </div>
 
-        {/* Modal Body - Scrollable */}
-        <div className="p-6 sm:p-8 overflow-y-auto space-y-8 flex-1">
+        {/* Modal Body */}
+        <div className="p-6 sm:p-8 space-y-7 flex-1">
+          {/* Performance & Delivery Metrics */}
+          {caseStudy.metrics && caseStudy.metrics.length > 0 && (
+            <div className="grid grid-cols-3 gap-3 p-3.5 sm:p-4 rounded-xl bg-neutral-950/80 border border-neutral-800/90">
+              {caseStudy.metrics.map((m, idx) => (
+                <div key={idx} className="text-center">
+                  <div className="text-base sm:text-lg font-bold font-display text-amber-400">
+                    {m.value}
+                  </div>
+                  <div className="text-[10px] sm:text-xs font-mono text-neutral-400 uppercase tracking-wider mt-0.5">
+                    {m.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* Project Narrative Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-neutral-200 font-display mb-2">
-                The Objective & Challenge
+            <div className="p-4 rounded-xl bg-neutral-950/40 border border-neutral-800/60">
+              <h4 className="text-xs font-mono uppercase tracking-wider text-amber-300 font-semibold mb-2 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                The Objective &amp; Challenge
               </h4>
-              <p className="text-sm text-neutral-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
                 {caseStudy.challenge}
               </p>
             </div>
 
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-neutral-200 font-display mb-2">
+            <div className="p-4 rounded-xl bg-neutral-950/40 border border-neutral-800/60">
+              <h4 className="text-xs font-mono uppercase tracking-wider text-emerald-300 font-semibold mb-2 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                 Technical Execution
               </h4>
-              <p className="text-sm text-neutral-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
                 {caseStudy.solution}
               </p>
             </div>
           </div>
 
           {/* Deliverables checklist */}
-          <div className="pt-6 border-t border-neutral-800">
+          <div className="pt-5 border-t border-neutral-800/80">
             <h4 className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-3">
-              Key Deliverables & Specifications
+              Key Deliverables &amp; Specifications
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {caseStudy.deliverables.map((item, i) => (
-                <div key={i} className="flex items-center gap-2 text-sm text-neutral-300">
+                <div key={i} className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
                   <span>{item}</span>
                 </div>
@@ -131,12 +149,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
           {/* Client Quote */}
           {caseStudy.quote && (
-            <div className="p-5 sm:p-6 rounded-xl border border-neutral-800 bg-neutral-950/80 relative">
-              <Quote className="w-6 h-6 text-neutral-700 absolute top-4 right-4" />
-              <p className="text-sm sm:text-base text-neutral-200 italic leading-relaxed">
+            <div className="p-4 sm:p-5 rounded-xl border border-neutral-800 bg-neutral-950/80 relative">
+              <Quote className="w-5 h-5 text-neutral-700 absolute top-4 right-4" />
+              <p className="text-xs sm:text-sm text-neutral-200 italic leading-relaxed">
                 "{caseStudy.quote.text}"
               </p>
-              <div className="mt-3 text-xs font-mono text-neutral-400">
+              <div className="mt-2.5 text-xs font-mono text-neutral-400">
                 <span className="font-semibold text-neutral-300">{caseStudy.quote.author}</span>
                 {' — '}
                 <span>{caseStudy.quote.role}</span>
@@ -145,15 +163,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
           )}
         </div>
 
-        {/* Modal Footer */}
-        <div className="p-4 sm:p-6 border-t border-neutral-800 bg-neutral-950 flex flex-wrap items-center justify-between gap-4 flex-shrink-0">
+        {/* Modal Sticky Bottom Actions */}
+        <div className="sticky bottom-0 p-4 sm:p-5 border-t border-neutral-800 bg-neutral-950/95 backdrop-blur-md flex flex-wrap items-center justify-between gap-3 z-10">
           <div className="flex items-center gap-3">
             {caseStudy.liveUrl && (
               <a
                 href={caseStudy.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-medium transition-colors no-underline"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-medium transition-colors no-underline"
               >
                 <span>Visit {caseStudy.title}</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -161,10 +179,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             )}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-lg border border-neutral-800 text-xs font-medium text-neutral-300 hover:text-white hover:bg-neutral-900 cursor-pointer"
+              className="px-4 py-2 rounded-xl border border-neutral-800 text-xs font-medium text-neutral-300 hover:text-white hover:bg-neutral-900 cursor-pointer transition-colors"
             >
               Close
             </button>
@@ -174,10 +192,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 onClose();
                 onStartInquiry(caseStudy.title);
               }}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-neutral-100 text-neutral-950 text-xs font-semibold hover:bg-neutral-200 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-xl bg-neutral-100 text-neutral-950 text-xs font-semibold hover:bg-white transition-all cursor-pointer shadow-md active:scale-95"
             >
               <span>Inquire For Similar Build</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-neutral-950" />
             </button>
           </div>
         </div>
