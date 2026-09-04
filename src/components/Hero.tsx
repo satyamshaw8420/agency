@@ -20,7 +20,7 @@ export const Hero: React.FC<HeroProps> = ({
   };
 
   return (
-    <section id="hero-section" className="relative min-h-[90vh] pb-20 pt-24 sm:pt-28 lg:pt-8 overflow-hidden bg-[#070709] rounded-none sm:rounded-2xl lg:rounded-3xl border-0 sm:border border-neutral-800/60 elevated-canvas">
+    <section id="hero-section" className="relative min-h-[90vh] pb-20 pt-20 sm:pt-24 lg:pt-12 overflow-hidden bg-[#070709] rounded-none sm:rounded-2xl lg:rounded-3xl border-0 sm:border border-neutral-800/60 elevated-canvas">
       {/* Background Layer */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Laptop-only luxury background image */}
@@ -108,47 +108,12 @@ export const Hero: React.FC<HeroProps> = ({
       </div>
 
       <div className="max-w-6xl mx-auto px-6 sm:px-10 relative z-10">
-        {/* Desktop Top Canvas Bar */}
-        <div className="hidden lg:flex items-center justify-end gap-8 pb-14 pt-2">
-          <button
-            onClick={() => scrollTo('work-section')}
-            className="text-xs font-semibold text-neutral-300 hover:text-white transition-colors cursor-pointer tracking-wide"
-          >
-            Selected Work
-          </button>
-          <button
-            onClick={() => scrollTo('services-section')}
-            className="text-xs font-semibold text-neutral-300 hover:text-white transition-colors cursor-pointer tracking-wide"
-          >
-            Capabilities
-          </button>
-          <button
-            onClick={onOpenEstimator}
-            className="text-xs font-semibold text-neutral-300 hover:text-white transition-colors cursor-pointer tracking-wide"
-          >
-            Project Estimator
-          </button>
-          <button
-            onClick={() => scrollTo('about-section')}
-            className="text-xs font-semibold text-neutral-300 hover:text-white transition-colors cursor-pointer tracking-wide"
-          >
-            Studio & Standards
-          </button>
-          <button
-            onClick={onOpenContact}
-            className="px-5 py-2.5 rounded-xl border border-amber-500/70 bg-amber-500/5 hover:bg-amber-500/15 text-neutral-100 font-semibold text-xs flex items-center gap-2 hover:border-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.25)] transition-all cursor-pointer"
-          >
-            <span>Start a Project</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-amber-400" />
-          </button>
-        </div>
-
         {/* Eyebrow / Studio Status */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-6 pt-2 lg:pt-0"
+          className="mb-6 pt-2 lg:pt-4"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-amber-500/50 bg-amber-500/5 text-xs text-amber-300 font-mono tracking-wide shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>

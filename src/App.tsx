@@ -25,7 +25,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1200);
+    }, 1400);
     return () => clearTimeout(timer);
   }, []);
 
@@ -58,33 +58,28 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen paper-backdrop text-neutral-100 flex flex-col selection:bg-amber-400 selection:text-neutral-950 relative overflow-x-hidden transform-gpu">
+    <div className="min-h-screen paper-backdrop text-neutral-100 selection:bg-amber-400 selection:text-neutral-950 relative">
       {/* Smooth exit loader via AnimatePresence */}
       <AnimatePresence mode="wait">
         {isLoading && <SkeletonLoader key="app-loader" />}
       </AnimatePresence>
 
-      {/* Desktop Left Sidebar */}
+      {/* Desktop Left Sidebar - Fixed to screen on laptop/desktop */}
       <LeftSidebar
         onOpenEstimator={() => handleOpenEstimator()}
         onOpenContact={() => handleOpenContact()}
       />
 
       {/* Mobile Top Navbar */}
-      <div className="lg:hidden">
+      <div className="lg:hidden w-full">
         <Navbar
           onOpenEstimator={() => handleOpenEstimator()}
           onOpenContact={() => handleOpenContact()}
         />
       </div>
 
-      {/* Main Content Layout with 3D elevation and desktop sidebar offset */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 15 : 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="lg:pl-72 flex-1 flex flex-col min-w-0 transform-gpu will-change-transform"
-      >
+      {/* Main Content Layout with desktop sidebar offset */}
+      <div className="lg:pl-72 flex-1 flex flex-col min-w-0 overflow-x-hidden">
         <main className="flex-1">
           <Hero
             onExploreWork={handleExploreWork}
@@ -111,7 +106,7 @@ export const App: React.FC = () => {
 
         {/* Studio Footer */}
         <Footer />
-      </motion.div>
+      </div>
 
       {/* Case Study Detail Modal */}
       <ProjectModal
