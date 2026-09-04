@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+/* Preload critical fonts */
+@font-face {
+  font-family: 'Syne';
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+}
+
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -10,10 +23,18 @@
       radial-gradient(circle at 100% 50%, rgba(217, 119, 6, 0.04) 0%, transparent 50%),
       radial-gradient(circle at 0% 100%, rgba(245, 158, 11, 0.03) 0%, transparent 60%);
     background-attachment: fixed;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, .font-display {
     font-family: 'Syne', sans-serif;
+  }
+
+  /* GPU acceleration for all animated elements */
+  * {
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
@@ -54,7 +75,7 @@
     10px 25px 60px -5px rgba(0, 0, 0, 0.9);
 }
 
-/* Butter-Smooth Continuous Golden Light Beam */
+/* Ultra-Smooth Continuous Golden Light Beam - Optimized */
 @keyframes lightBeamGlideForward {
   0% {
     stroke-dashoffset: 2200;
@@ -73,6 +94,92 @@
   }
 }
 
+/* Subtle floating animation for ambient elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Smooth scale hover effect */
+@keyframes subtleScale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* Shimmer effect for loading states */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Gradient flow animation */
+@keyframes gradientFlow {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+/* Pulse glow animation */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+/* Slide up reveal animation */
+@keyframes slideUpReveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Rotate animation */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .animate-gold-beam {
   stroke-dasharray: 240 1960;
   animation: lightBeamGlideForward 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
@@ -85,8 +192,122 @@
   will-change: stroke-dashoffset;
 }
 
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-subtle-scale {
+  animation: subtleScale 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-gradient-flow {
+  background-size: 200% 200%;
+  animation: gradientFlow 15s ease infinite;
+  will-change: background-position;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+.animate-slide-up {
+  animation: slideUpReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+  will-change: opacity;
+}
+
 .velvet-card {
   background: linear-gradient(145deg, rgba(16, 16, 20, 0.85), rgba(10, 10, 14, 0.95));
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(245, 158, 11, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.velvet-card:hover {
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 40px rgba(245, 158, 11, 0.05);
+  transform: translateY(-4px);
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Hardware acceleration hints */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.5);
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 2px solid rgba(245, 158, 11, 0.8);
+  outline-offset: 2px;
+}
+
+/* Image optimization */
+img {
+  content-visibility: auto;
+}
+
+/* Reduce paint operations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Stagger animation delays for list items */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
