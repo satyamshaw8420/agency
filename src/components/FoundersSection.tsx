@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, Globe, ShieldCheck, Sparkles } from 'lucide-react';
 
-export const FoundersSection: React.FC = () => {
+export const FoundersSection: React.FC = memo(() => {
   const founders = [
     {
       name: 'Satyam Shaw',
@@ -29,7 +29,7 @@ export const FoundersSection: React.FC = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-      className="py-24 border-t border-neutral-800/80 bg-neutral-950 relative overflow-hidden"
+      className="py-24 border-t border-neutral-800/80 bg-neutral-950 relative overflow-hidden transform-gpu"
     >
       {/* Background radial gold glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
@@ -60,7 +60,7 @@ export const FoundersSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="velvet-card rounded-2xl p-8 border border-neutral-800/90 hover:border-amber-500/40 transition-all duration-500 flex flex-col justify-between group shadow-xl hover:shadow-[0_10px_35px_rgba(245,158,11,0.08)]"
+              className="velvet-card rounded-2xl p-8 border border-neutral-800/90 hover:border-amber-500/40 transition-all duration-500 flex flex-col justify-between group shadow-xl hover:shadow-[0_10px_35px_rgba(245,158,11,0.08)] transform-gpu will-change-transform"
             >
               <div>
                 <div className="flex items-start justify-between mb-6">
@@ -68,7 +68,10 @@ export const FoundersSection: React.FC = () => {
                     <img
                       src={founder.avatar}
                       alt={founder.name}
-                      className="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl object-cover border border-amber-500/30 shadow-md group-hover:border-amber-400/60 transition-colors"
+                      width="80"
+                      height="80"
+                      loading="lazy"
+                      className="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl object-cover border border-amber-500/30 shadow-md group-hover:border-amber-400/60 transition-colors transform-gpu"
                     />
                     <div>
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-mono font-semibold">
@@ -78,12 +81,12 @@ export const FoundersSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Portfolio Website Link (GitHub removed cleanly) */}
+                  {/* Portfolio Website Link */}
                   <a
                     href={founder.portfolioUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-xl bg-neutral-900/80 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-amber-300 hover:border-amber-500/50 transition-all shadow-sm group/btn"
+                    className="w-10 h-10 rounded-xl bg-neutral-900/80 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-amber-300 hover:border-amber-500/50 transition-all shadow-sm group/btn transform-gpu"
                     title="Visit Portfolio"
                   >
                     <Globe className="w-4 h-4 group-hover/btn:scale-110 transition-transform text-neutral-300 group-hover/btn:text-amber-400" />
@@ -123,4 +126,6 @@ export const FoundersSection: React.FC = () => {
       </div>
     </motion.section>
   );
-};
+});
+
+FoundersSection.displayName = 'FoundersSection';

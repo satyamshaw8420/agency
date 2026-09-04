@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, Check, Code2, Cpu, LayoutGrid, Palette } from 'lucide-react';
 import { SERVICES } from '../data';
@@ -8,7 +8,7 @@ interface ServicesSectionProps {
   onSelectService: (serviceName: string) => void;
 }
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectService }) => {
+export const ServicesSection: React.FC<ServicesSectionProps> = memo(({ onSelectService }) => {
   const [selectedServiceId, setSelectedServiceId] = useState<string>(SERVICES[0].id);
 
   const selectedService = SERVICES.find((s) => s.id === selectedServiceId) || SERVICES[0];
@@ -35,7 +35,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-      className="py-24 border-t border-neutral-800/80 bg-neutral-950"
+      className="py-24 border-t border-neutral-800/80 bg-neutral-950 transform-gpu"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         {/* Header */}
@@ -62,7 +62,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                   key={service.id}
                   id={`service-tab-${service.id}`}
                   onClick={() => setSelectedServiceId(service.id)}
-                  className={`p-6 rounded-2xl border transition-all cursor-pointer text-left ${
+                  className={`p-6 rounded-2xl border transition-all cursor-pointer text-left transform-gpu will-change-transform ${
                     isSelected
                       ? 'border-neutral-700 bg-neutral-900/90 shadow-xl'
                       : 'border-neutral-800/70 bg-neutral-900/30 hover:border-neutral-700/80 hover:bg-neutral-900/60'
@@ -97,7 +97,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
           </div>
 
           {/* Detailed Inspector Card */}
-          <div className="lg:col-span-7 rounded-2xl border border-neutral-800 bg-neutral-900/60 p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden">
+          <div className="lg:col-span-7 rounded-2xl border border-neutral-800 bg-neutral-900/60 p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden transform-gpu">
             <div>
               <div className="flex items-center justify-between pb-6 border-b border-neutral-800">
                 <div className="flex items-center gap-3">
@@ -113,7 +113,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                 <button
                   id={`inquire-service-btn-${selectedService.id}`}
                   onClick={() => onSelectService(selectedService.title)}
-                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-neutral-100 text-neutral-950 text-xs font-semibold hover:bg-neutral-200 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-neutral-100 text-neutral-950 text-xs font-semibold hover:bg-neutral-200 transition-colors cursor-pointer transform-gpu"
                 >
                   <span>Inquire Now</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -174,4 +174,6 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
       </div>
     </motion.section>
   );
-};
+});
+
+ServicesSection.displayName = 'ServicesSection';

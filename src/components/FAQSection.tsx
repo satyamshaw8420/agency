@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { ChevronDown, HelpCircle, MessageSquareQuote } from 'lucide-react';
 
 interface FAQItem {
@@ -40,7 +40,7 @@ const FAQ_ITEMS: FAQItem[] = [
   }
 ];
 
-export const FAQSection: React.FC<{ onOpenContact: () => void }> = ({ onOpenContact }) => {
+export const FAQSection: React.FC<{ onOpenContact: () => void }> = memo(({ onOpenContact }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleFAQ = (index: number) => {
@@ -48,7 +48,7 @@ export const FAQSection: React.FC<{ onOpenContact: () => void }> = ({ onOpenCont
   };
 
   return (
-    <section id="faq-section" className="py-24 border-t border-neutral-800/80 bg-[#050811] relative overflow-hidden">
+    <section id="faq-section" className="py-24 border-t border-neutral-800/80 bg-[#050811] relative overflow-hidden transform-gpu">
       {/* Ambient background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-sky-950/20 rounded-full blur-3xl pointer-events-none" />
 
@@ -73,7 +73,7 @@ export const FAQSection: React.FC<{ onOpenContact: () => void }> = ({ onOpenCont
             return (
               <div
                 key={index}
-                className="velvet-card rounded-2xl border border-neutral-800/80 overflow-hidden transition-all duration-300"
+                className="velvet-card rounded-2xl border border-neutral-800/80 overflow-hidden transition-all duration-300 transform-gpu will-change-transform"
               >
                 <button
                   onClick={() => toggleFAQ(index)}
@@ -90,7 +90,7 @@ export const FAQSection: React.FC<{ onOpenContact: () => void }> = ({ onOpenCont
                       </h3>
                     </div>
                   </div>
-                  <div className={`w-8 h-8 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-180 bg-sky-950/60 text-sky-400 border-sky-500/30' : ''}`}>
+                  <div className={`w-8 h-8 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 transition-transform duration-300 shrink-0 transform-gpu ${isOpen ? 'rotate-180 bg-sky-950/60 text-sky-400 border-sky-500/30' : ''}`}>
                     <ChevronDown className="w-4 h-4" />
                   </div>
                 </button>
@@ -108,7 +108,7 @@ export const FAQSection: React.FC<{ onOpenContact: () => void }> = ({ onOpenCont
         </div>
 
         {/* Bottom CTA Box */}
-        <div className="mt-16 rounded-2xl velvet-card p-8 sm:p-10 border border-sky-500/20 text-center flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl">
+        <div className="mt-16 rounded-2xl velvet-card p-8 sm:p-10 border border-sky-500/20 text-center flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl transform-gpu">
           <div className="text-left">
             <h3 className="font-display text-xl font-bold text-neutral-100">
               Have a specific question not listed here?
@@ -119,7 +119,7 @@ export const FAQSection: React.FC<{ onOpenContact: () => void }> = ({ onOpenCont
           </div>
           <button
             onClick={onOpenContact}
-            className="px-6 py-3 rounded-xl bg-sky-500 text-[#050811] font-bold text-xs uppercase tracking-wider hover:bg-sky-400 transition-all flex items-center gap-2 shrink-0 shadow-lg cursor-pointer"
+            className="px-6 py-3 rounded-xl bg-sky-500 text-[#050811] font-bold text-xs uppercase tracking-wider hover:bg-sky-400 transition-all flex items-center gap-2 shrink-0 shadow-lg cursor-pointer transform-gpu"
           >
             <MessageSquareQuote className="w-4 h-4" />
             <span>Ask Us Directly</span>
@@ -128,4 +128,6 @@ export const FAQSection: React.FC<{ onOpenContact: () => void }> = ({ onOpenCont
       </div>
     </section>
   );
-};
+});
+
+FAQSection.displayName = 'FAQSection';

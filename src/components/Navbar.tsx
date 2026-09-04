@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { ArrowUpRight, Menu, X, Sparkles } from 'lucide-react';
 
 interface NavbarProps {
@@ -6,16 +6,23 @@ interface NavbarProps {
   onOpenContact: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimator, onOpenContact }) => {
+export const Navbar: React.FC<NavbarProps> = memo(({ onOpenEstimator, onOpenContact }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -30,10 +37,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimator, onOpenContact }
   return (
     <header
       id="main-navbar"
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#070709]/90 backdrop-blur-xl border-b border-neutral-800/80 py-2.5 sm:py-3 shadow-xl shadow-black/50"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#070709]/90 backdrop-blur-xl border-b border-neutral-800/80 py-2.5 sm:py-3 shadow-xl shadow-black/50 transform-gpu will-change-transform"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">
-        {/* Brand Logo - Uses /public/logo.png with fallback */}
+        {/* Brand Logo */}
         <a
           href="#"
           id="brand-logo-link"
@@ -43,14 +50,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimator, onOpenContact }
             <img
               src="/logo.png"
               alt="Beyond Limits Studio"
+              width="210"
+              height="52"
               onError={() => setLogoError(true)}
-              className="h-11 sm:h-13 md:h-16 w-auto max-w-[170px] sm:max-w-[210px] md:max-w-[250px] object-contain transition-all duration-300 group-hover:scale-105 drop-shadow-[0_2px_16px_rgba(245,158,11,0.22)]"
+              className="h-11 sm:h-13 md:h-16 w-auto max-w-[170px] sm:max-w-[210px] md:max-w-[250px] object-contain transition-all duration-300 group-hover:scale-105 drop-shadow-[0_2px_16px_rgba(245,158,11,0.22)] transform-gpu"
             />
           ) : (
             <img
               src="/logo.svg"
               alt="Beyond Limits Studio"
-              className="h-11 sm:h-13 md:h-16 w-auto max-w-[170px] sm:max-w-[210px] md:max-w-[250px] object-contain transition-all duration-300 group-hover:scale-105"
+              width="210"
+              height="52"
+              className="h-11 sm:h-13 md:h-16 w-auto max-w-[170px] sm:max-w-[210px] md:max-w-[250px] object-contain transition-all duration-300 group-hover:scale-105 transform-gpu"
             />
           )}
         </a>
@@ -98,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimator, onOpenContact }
           <button
             id="nav-cta-contact"
             onClick={onOpenContact}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-neutral-100 text-neutral-950 text-sm font-semibold hover:bg-neutral-200 transition-all shadow-md active:scale-95 cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-neutral-100 text-neutral-950 text-sm font-semibold hover:bg-neutral-200 transition-all shadow-md active:scale-95 cursor-pointer transform-gpu"
           >
             <span>Start a Project</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -109,7 +120,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimator, onOpenContact }
         <button
           id="mobile-menu-toggle-btn"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-xl border border-neutral-800 bg-neutral-900/60 text-neutral-300 hover:text-white hover:border-amber-500/50 transition-colors focus:outline-none cursor-pointer"
+          className="md:hidden p-2 rounded-xl border border-neutral-800 bg-neutral-900/60 text-neutral-300 hover:text-white hover:border-amber-500/50 transition-colors focus:outline-none cursor-pointer transform-gpu"
           aria-label="Toggle Navigation Menu"
         >
           {mobileMenuOpen ? <X className="w-5 h-5 text-amber-400" /> : <Menu className="w-5 h-5" />}
@@ -120,7 +131,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimator, onOpenContact }
       {mobileMenuOpen && (
         <div
           id="mobile-nav-panel"
-          className="md:hidden border-b border-neutral-800 bg-neutral-950/95 backdrop-blur-xl px-6 py-6 transition-all"
+          className="md:hidden border-b border-neutral-800 bg-neutral-950/95 backdrop-blur-xl px-6 py-6 transition-all transform-gpu will-change-transform"
         >
           <div className="flex flex-col gap-4 text-base font-medium text-neutral-200">
             <button
@@ -167,4 +178,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimator, onOpenContact }
       )}
     </header>
   );
-};
+});
+
+Navbar.displayName = 'Navbar';

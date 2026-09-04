@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -29,40 +29,48 @@ export const App: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleExploreWork = () => {
+  const handleExploreWork = useCallback(() => {
     const el = document.getElementById('work-section');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
-  const handleOpenContact = (subject?: string) => {
+  const handleOpenContact = useCallback((subject?: string) => {
     if (subject) setContactSubject(subject);
     const el = document.getElementById('contact-section');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
-  const handleOpenEstimator = (serviceName?: string) => {
+  const handleOpenEstimator = useCallback((serviceName?: string) => {
     setEstimatorService(serviceName);
     setEstimatorOpen(true);
-  };
+  }, []);
 
-  const handleCaseStudyInquiry = (studyTitle: string) => {
+  const handleCaseStudyInquiry = useCallback((studyTitle: string) => {
     handleOpenContact(`Inquiry inspired by ${studyTitle}`);
-  };
+  }, [handleOpenContact]);
+
+  const handleCloseEstimator = useCallback(() => {
+    setEstimatorOpen(false);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setSelectedCaseStudy(null);
+  }, []);
 
   return (
-    <div className="min-h-screen paper-backdrop text-neutral-100 flex flex-col selection:bg-amber-400 selection:text-neutral-950 relative overflow-x-hidden">
+    <div className="min-h-screen paper-backdrop text-neutral-100 flex flex-col selection:bg-amber-400 selection:text-neutral-950 relative overflow-x-hidden transform-gpu">
       {/* Smooth exit loader via AnimatePresence */}
       <AnimatePresence mode="wait">
         {isLoading && <SkeletonLoader key="app-loader" />}
       </AnimatePresence>
 
-      {/* Desktop Left Sidebar matching reference Image 3 */}
+      {/* Desktop Left Sidebar */}
       <LeftSidebar
         onOpenEstimator={() => handleOpenEstimator()}
         onOpenContact={() => handleOpenContact()}
       />
 
-      {/* Mobile Top Navbar (shown only on mobile/tablet) */}
+      {/* Mobile Top Navbar */}
       <div className="lg:hidden">
         <Navbar
           onOpenEstimator={() => handleOpenEstimator()}
@@ -75,7 +83,7 @@ export const App: React.FC = () => {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 15 : 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="lg:pl-72 flex-1 flex flex-col min-w-0"
+        className="lg:pl-72 flex-1 flex flex-col min-w-0 transform-gpu will-change-transform"
       >
         <main className="flex-1">
           <Hero
@@ -84,39 +92,38 @@ export const App: React.FC = () => {
             onOpenContact={() => handleOpenContact()}
           />
 
+          <WorkShowcase
+            onSelectCaseStudy={(study) => setSelectedCaseStudy(study)}
+          />
 
-        <WorkShowcase
-          onSelectCaseStudy={(study) => setSelectedCaseStudy(study)}
-        />
+          <ServicesSection
+            onSelectService={(serviceTitle) => handleOpenEstimator(serviceTitle)}
+          />
 
-        <ServicesSection
-          onSelectService={(serviceTitle) => handleOpenEstimator(serviceTitle)}
-        />
+          <AboutSection />
 
-        <AboutSection />
+          <FoundersSection />
 
-        <FoundersSection />
+          <FAQSection onOpenContact={() => handleOpenContact()} />
 
-        <FAQSection onOpenContact={() => handleOpenContact()} />
+          <ContactSection initialSubject={contactSubject} />
+        </main>
 
-        <ContactSection initialSubject={contactSubject} />
-      </main>
-
-      {/* Studio Footer */}
-      <Footer />
+        {/* Studio Footer */}
+        <Footer />
       </motion.div>
 
       {/* Case Study Detail Modal */}
       <ProjectModal
         caseStudy={selectedCaseStudy}
-        onClose={() => setSelectedCaseStudy(null)}
+        onClose={handleCloseModal}
         onStartInquiry={handleCaseStudyInquiry}
       />
 
       {/* Interactive Scope & Price Estimator Modal */}
       <ProjectEstimator
         isOpen={estimatorOpen}
-        onClose={() => setEstimatorOpen(false)}
+        onClose={handleCloseEstimator}
         initialService={estimatorService}
       />
     </div>
