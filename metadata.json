@@ -1,0 +1,8 @@
+{
+  "name": "Agency",
+  "description": "BeyondLimits Digital Studio - High-performance web applications, digital restaurant platforms, and modern creative engineering portfolio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
