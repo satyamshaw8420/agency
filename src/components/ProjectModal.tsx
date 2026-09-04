@@ -93,30 +93,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 
         {/* Modal Body - Scrollable */}
         <div className="p-6 sm:p-8 overflow-y-auto space-y-8 flex-1">
-          {/* Key Impact Metrics */}
-          <div>
-            <h3 className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-4">
-              Demonstrated Performance & Metrics
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {caseStudy.metrics.map((metric, i) => (
-                <div
-                  key={i}
-                  className="p-4 rounded-xl border border-neutral-800 bg-neutral-950/60 flex flex-col"
-                >
-                  <span className="font-display text-2xl sm:text-3xl font-bold text-emerald-400">
-                    {metric.value}
-                  </span>
-                  <span className="mt-1 text-xs text-neutral-400 font-mono">
-                    {metric.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Project Narrative Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-neutral-800">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h4 className="text-sm font-semibold uppercase tracking-wider text-neutral-200 font-display mb-2">
                 The Objective & Challenge

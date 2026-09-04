@@ -125,22 +125,22 @@ Notes: ${notes || 'N/A'}`;
   return (
     <div
       id="project-estimator-overlay"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto"
       onClick={onClose}
     >
       <div
         id="project-estimator-modal"
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-3xl bg-neutral-900 border border-neutral-800 rounded-2xl shadow-2xl p-6 sm:p-8 my-auto max-h-[90vh] overflow-y-auto"
+        className="relative w-full max-w-3xl bg-neutral-900 border border-neutral-800 rounded-2xl shadow-2xl p-5 sm:p-8 my-auto max-h-[92vh] overflow-y-auto"
       >
         {/* Header */}
-        <div className="flex items-start justify-between pb-6 border-b border-neutral-800">
+        <div className="flex items-start justify-between pb-5 border-b border-neutral-800">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono uppercase text-neutral-400">
               <Sparkles className="w-3.5 h-3.5 text-neutral-400" />
               <span>Studio Calculator</span>
             </div>
-            <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase text-neutral-100 mt-1">
+            <h3 className="font-display text-xl sm:text-3xl font-bold uppercase text-neutral-100 mt-1">
               Interactive Scope & Cost Estimator
             </h3>
             <p className="text-xs sm:text-sm text-neutral-400 mt-1">
@@ -150,7 +150,7 @@ Notes: ${notes || 'N/A'}`;
 
           <button
             onClick={onClose}
-            className="p-2 rounded-full text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
+            className="p-2 rounded-full text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors shrink-0 ml-2"
             aria-label="Close estimator"
           >
             <X className="w-5 h-5" />
@@ -251,7 +251,7 @@ Notes: ${notes || 'N/A'}`;
             </div>
 
             {/* Calculated Results Banner */}
-            <div className="p-6 rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-500/10 via-neutral-900 to-neutral-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_0_35px_rgba(245,158,11,0.12)]">
+            <div className="p-5 sm:p-6 rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-500/10 via-neutral-900 to-neutral-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_0_35px_rgba(245,158,11,0.12)]">
               <div>
                 <span className="text-[11px] font-mono text-amber-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-amber-400" />
@@ -310,11 +310,11 @@ Notes: ${notes || 'N/A'}`;
               />
             </div>
 
-            <div className="flex items-center justify-between pt-4">
+            <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-5 border-t border-neutral-800/80">
               <button
                 type="button"
                 onClick={onClose}
-                className="text-xs text-neutral-400 hover:text-white cursor-pointer"
+                className="w-full sm:w-auto px-5 py-3 rounded-xl border border-neutral-800 text-xs font-mono text-neutral-400 hover:text-white hover:bg-neutral-800/60 transition-colors text-center cursor-pointer"
               >
                 Cancel
               </button>
@@ -322,7 +322,7 @@ Notes: ${notes || 'N/A'}`;
               <button
                 id="submit-estimator-inquiry-btn"
                 type="submit"
-                className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-500 text-neutral-950 font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all shadow-[0_0_25px_rgba(245,158,11,0.3)] active:scale-95 cursor-pointer"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-500 text-neutral-950 font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all shadow-[0_0_25px_rgba(245,158,11,0.3)] active:scale-95 cursor-pointer text-center"
               >
                 Submit Estimate & Request Call
               </button>
@@ -349,10 +349,10 @@ Notes: ${notes || 'N/A'}`;
               <div><span className="text-neutral-500">Disciplines:</span> {selectedDisciplines.join(', ')}</div>
             </div>
 
-            <div className="flex items-center justify-center gap-3 pt-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
               <button
                 onClick={handleCopySummary}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-neutral-800 text-xs font-mono text-neutral-300 hover:text-white hover:bg-neutral-800 cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl border border-neutral-800 text-xs font-mono text-neutral-300 hover:text-white hover:bg-neutral-800 cursor-pointer"
               >
                 <Copy className="w-3.5 h-3.5" />
                 <span>{copied ? 'Copied to Clipboard!' : 'Copy Summary'}</span>
@@ -363,7 +363,7 @@ Notes: ${notes || 'N/A'}`;
                   setSubmitted(false);
                   onClose();
                 }}
-                className="px-5 py-2 rounded-lg bg-neutral-100 text-neutral-950 text-xs font-semibold hover:bg-neutral-200 cursor-pointer"
+                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-neutral-100 text-neutral-950 text-xs font-semibold hover:bg-neutral-200 cursor-pointer text-center"
               >
                 Done
               </button>
