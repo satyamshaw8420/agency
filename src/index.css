@@ -3,12 +3,12 @@
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #050811;
+    background-color: #08080a;
     color: #f1f5f9;
     background-image: 
-      radial-gradient(circle at 15% 15%, rgba(14, 116, 144, 0.12) 0%, transparent 45%),
-      radial-gradient(circle at 85% 85%, rgba(30, 58, 138, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 50% 50%, rgba(8, 47, 73, 0.08) 0%, transparent 70%);
+      radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.05) 0%, transparent 60%),
+      radial-gradient(circle at 100% 50%, rgba(217, 119, 6, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 0% 100%, rgba(245, 158, 11, 0.03) 0%, transparent 60%);
     background-attachment: fixed;
   }
 
@@ -17,16 +17,76 @@
   }
 }
 
-/* Velvet luxury sheen and custom selection */
+/* Luxury gold selection */
 ::selection {
-  background-color: #38bdf8;
-  color: #050811;
+  background-color: #f59e0b;
+  color: #08080a;
+}
+
+.gold-glow {
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.25);
+}
+
+.gold-border {
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.gold-border:hover {
+  border-color: rgba(245, 158, 11, 0.8);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+}
+
+/* Paper texture & 3D Depth Backdrop */
+.paper-backdrop {
+  background-color: #111215;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(32, 34, 40, 0.8) 0, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(18, 19, 23, 0.9) 0, transparent 50%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* 3D Elevated Studio Canvas */
+.elevated-canvas {
+  background: #070709;
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    -10px 20px 40px -10px rgba(0, 0, 0, 0.85),
+    10px 25px 60px -5px rgba(0, 0, 0, 0.9);
+}
+
+/* Butter-Smooth Continuous Golden Light Beam */
+@keyframes lightBeamGlideForward {
+  0% {
+    stroke-dashoffset: 2200;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes lightBeamGlideBackward {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 2200;
+  }
+}
+
+.animate-gold-beam {
+  stroke-dasharray: 240 1960;
+  animation: lightBeamGlideForward 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: stroke-dashoffset;
+}
+
+.animate-gold-beam-reverse {
+  stroke-dasharray: 200 1800;
+  animation: lightBeamGlideBackward 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: stroke-dashoffset;
 }
 
 .velvet-card {
-  background: linear-gradient(145deg, rgba(13, 20, 36, 0.9), rgba(7, 11, 22, 0.95));
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.12);
+  background: linear-gradient(145deg, rgba(16, 16, 20, 0.85), rgba(10, 10, 14, 0.95));
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(245, 158, 11, 0.15);
 }
-
-

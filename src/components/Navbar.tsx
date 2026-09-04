@@ -30,13 +30,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimator, onOpenContact }
   return (
     <header
       id="main-navbar"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-neutral-950/85 backdrop-blur-md border-b border-neutral-800/80 py-3.5 shadow-xl shadow-black/40'
-          : 'bg-transparent py-6'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#070709]/90 backdrop-blur-xl border-b border-neutral-800/80 py-2.5 sm:py-3 shadow-xl shadow-black/50"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">
         {/* Brand Logo - Uses /public/logo.png with fallback */}
         <a
           href="#"
@@ -48,13 +44,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimator, onOpenContact }
               src="/logo.png"
               alt="Beyond Limits Studio"
               onError={() => setLogoError(true)}
-              className="h-14 sm:h-16 md:h-20 w-auto max-w-[260px] object-contain transition-all duration-300 group-hover:scale-105 drop-shadow-[0_2px_12px_rgba(234,179,8,0.15)]"
+              className="h-11 sm:h-13 md:h-16 w-auto max-w-[170px] sm:max-w-[210px] md:max-w-[250px] object-contain transition-all duration-300 group-hover:scale-105 drop-shadow-[0_2px_16px_rgba(245,158,11,0.22)]"
             />
           ) : (
             <img
               src="/logo.svg"
               alt="Beyond Limits Studio"
-              className="h-14 sm:h-16 md:h-20 w-auto max-w-[260px] object-contain transition-all duration-300 group-hover:scale-105"
+              className="h-11 sm:h-13 md:h-16 w-auto max-w-[170px] sm:max-w-[210px] md:max-w-[250px] object-contain transition-all duration-300 group-hover:scale-105"
             />
           )}
         </a>
@@ -113,10 +109,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEstimator, onOpenContact }
         <button
           id="mobile-menu-toggle-btn"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-lg text-neutral-300 hover:text-white hover:bg-neutral-900 focus:outline-none"
+          className="md:hidden p-2 rounded-xl border border-neutral-800 bg-neutral-900/60 text-neutral-300 hover:text-white hover:border-amber-500/50 transition-colors focus:outline-none cursor-pointer"
           aria-label="Toggle Navigation Menu"
         >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileMenuOpen ? <X className="w-5 h-5 text-amber-400" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 

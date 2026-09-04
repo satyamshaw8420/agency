@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { motion } from 'motion/react';
 import { ArrowUpRight, ExternalLink, Layers, Sparkles, CheckCircle2 } from 'lucide-react';
 import { CASE_STUDIES } from '../data';
 import { CaseStudy, WorkCategory } from '../types';
@@ -23,13 +24,20 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ onSelectCaseStudy })
   ];
 
   return (
-    <section id="work-section" className="py-24 border-t border-neutral-800/80 bg-neutral-950">
+    <motion.section
+      id="work-section"
+      initial={{ opacity: 0, y: 35 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      className="py-24 border-t border-neutral-800/80 bg-neutral-950"
+    >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-neutral-800/80">
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono uppercase text-emerald-400 tracking-wider mb-3">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <div className="flex items-center gap-2 text-xs font-mono uppercase text-amber-400 tracking-wider mb-3">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
               <span>Live Client Portfolio • 2025</span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold uppercase text-neutral-100 tracking-tight">
@@ -62,10 +70,14 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ onSelectCaseStudy })
         {/* Project Grid */}
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, index) => (
-            <div
+            <motion.div
               key={project.id}
               id={`case-study-card-${project.id}`}
-              className="group rounded-2xl border border-neutral-800/90 bg-neutral-900/40 hover:bg-neutral-900/70 overflow-hidden transition-all duration-300 hover:border-neutral-700 flex flex-col justify-between"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="group rounded-2xl border border-neutral-800/90 bg-neutral-900/40 hover:bg-neutral-900/70 overflow-hidden transition-all duration-500 hover:border-amber-500/30 flex flex-col justify-between shadow-xl"
             >
               {/* Media preview container */}
               <div
@@ -85,14 +97,6 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ onSelectCaseStudy })
                   <span className="px-3 py-1 rounded-full text-[11px] font-mono uppercase bg-neutral-950/80 backdrop-blur-md text-neutral-200 border border-neutral-700/60 font-semibold">
                     {project.categoryLabel}
                   </span>
-                </div>
-
-                {/* Metric pill top-right */}
-                <div className="absolute top-4 right-4">
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-neutral-900/90 text-neutral-100 border border-neutral-700/80 backdrop-blur-md">
-                    <span className="text-emerald-400 font-bold">{project.metrics[0].value}</span>
-                    <span className="text-neutral-400 text-[10px]">{project.metrics[0].label}</span>
-                  </div>
                 </div>
 
                 {/* Client label overlay bottom */}
@@ -156,10 +160,10 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ onSelectCaseStudy })
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

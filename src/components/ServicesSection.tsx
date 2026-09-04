@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { ArrowUpRight, Check, Code2, Cpu, LayoutGrid, Palette } from 'lucide-react';
 import { SERVICES } from '../data';
 import { Service } from '../types';
@@ -28,7 +29,14 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
   };
 
   return (
-    <section id="services-section" className="py-24 border-t border-neutral-800/80 bg-neutral-950">
+    <motion.section
+      id="services-section"
+      initial={{ opacity: 0, y: 35 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      className="py-24 border-t border-neutral-800/80 bg-neutral-950"
+    >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         {/* Header */}
         <div className="max-w-3xl mb-16">
@@ -164,6 +172,6 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

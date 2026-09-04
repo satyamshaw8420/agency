@@ -12,7 +12,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     liveUrl: 'https://siankitchen.vercel.app/',
     deliverables: ['Next.js / React Web App', 'Interactive Digital Menu', 'Mobile-First Quick Order Flow', 'Vercel Edge Deployment'],
     metrics: [
-      { label: 'Core Web Vitals', value: '99/100' },
+      { label: 'Performance Rank', value: 'Top 1%' },
       { label: 'Page Load Speed', value: '0.6s' },
       { label: 'Mobile Optimization', value: '100%' },
     ],
@@ -64,7 +64,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     liveUrl: 'https://saltpeppers123.vercel.app/',
     deliverables: ['Modern Web Experience', 'Chef Specials Showcase', 'Table Reservation Form', 'Atmospheric Food Gallery'],
     metrics: [
-      { label: 'Lighthouse Score', value: '98/100' },
+      { label: 'Load Latency', value: 'Sub-Second' },
       { label: 'Table Booking Inquiries', value: '+40%' },
       { label: 'Responsive Modes', value: 'All Devices' },
     ],

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { WorkShowcase } from './components/WorkShowcase';
@@ -11,6 +12,7 @@ import { Footer } from './components/Footer';
 import { ProjectModal } from './components/ProjectModal';
 import { ProjectEstimator } from './components/ProjectEstimator';
 import { SkeletonLoader } from './components/SkeletonLoader';
+import { LeftSidebar } from './components/LeftSidebar';
 import { CaseStudy } from './types';
 
 export const App: React.FC = () => {
@@ -23,7 +25,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 900);
+    }, 1200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -48,22 +50,40 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#050811] text-neutral-100 flex flex-col selection:bg-sky-400 selection:text-[#050811]">
-      {isLoading && <SkeletonLoader />}
+    <div className="min-h-screen paper-backdrop text-neutral-100 flex flex-col selection:bg-amber-400 selection:text-neutral-950 relative overflow-x-hidden">
+      {/* Smooth exit loader via AnimatePresence */}
+      <AnimatePresence mode="wait">
+        {isLoading && <SkeletonLoader key="app-loader" />}
+      </AnimatePresence>
 
-      {/* Sticky Top Navbar */}
-      <Navbar
+      {/* Desktop Left Sidebar matching reference Image 3 */}
+      <LeftSidebar
         onOpenEstimator={() => handleOpenEstimator()}
         onOpenContact={() => handleOpenContact()}
       />
 
-      {/* Main Content Layout */}
-      <main className="flex-1">
-        <Hero
-          onExploreWork={handleExploreWork}
+      {/* Mobile Top Navbar (shown only on mobile/tablet) */}
+      <div className="lg:hidden">
+        <Navbar
           onOpenEstimator={() => handleOpenEstimator()}
           onOpenContact={() => handleOpenContact()}
         />
+      </div>
+
+      {/* Main Content Layout with 3D elevation and desktop sidebar offset */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: isLoading ? 0 : 1, y: isLoading ? 15 : 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="lg:pl-72 flex-1 flex flex-col min-w-0"
+      >
+        <main className="flex-1">
+          <Hero
+            onExploreWork={handleExploreWork}
+            onOpenEstimator={() => handleOpenEstimator()}
+            onOpenContact={() => handleOpenContact()}
+          />
+
 
         <WorkShowcase
           onSelectCaseStudy={(study) => setSelectedCaseStudy(study)}
@@ -84,6 +104,7 @@ export const App: React.FC = () => {
 
       {/* Studio Footer */}
       <Footer />
+      </motion.div>
 
       {/* Case Study Detail Modal */}
       <ProjectModal

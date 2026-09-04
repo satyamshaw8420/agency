@@ -1,19 +1,27 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { CheckCircle2, ShieldCheck, Sparkles, Terminal } from 'lucide-react';
 import { STUDIO_METRICS, STUDIO_STANDARDS } from '../data';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="about-section" className="py-24 border-t border-neutral-800/80 bg-neutral-950">
+    <motion.section
+      id="about-section"
+      initial={{ opacity: 0, y: 35 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      className="py-24 border-t border-neutral-800/80 bg-neutral-950"
+    >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         {/* Studio Manifesto / Philosophy */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pb-20 border-b border-neutral-800/80">
           <div className="lg:col-span-5">
-            <span className="text-xs font-mono uppercase tracking-widest text-neutral-400">
+            <span className="text-xs font-mono uppercase tracking-widest text-amber-400">
               Studio Philosophy
             </span>
             <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-bold uppercase text-neutral-100 tracking-tight leading-tight">
-              Built lean, agile & focused on real results
+              Built lean, agile &amp; focused on real results
             </h2>
           </div>
 
@@ -28,17 +36,17 @@ export const AboutSection: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 font-mono text-xs text-neutral-300">
               <div className="p-4 rounded-xl border border-neutral-800/80 bg-neutral-900/40">
                 <div className="text-neutral-200 font-bold mb-1 flex items-center gap-2">
-                  <span className="text-emerald-400 font-mono">[01]</span>
+                  <span className="text-amber-400 font-mono">[01]</span>
                   <span>DIRECT COLLABORATION</span>
                 </div>
                 <div className="text-neutral-400">Direct Slack/Email access to the builder. Clear weekly demos, zero bureaucratic friction.</div>
               </div>
               <div className="p-4 rounded-xl border border-neutral-800/80 bg-neutral-900/40">
                 <div className="text-neutral-200 font-bold mb-1 flex items-center gap-2">
-                  <span className="text-emerald-400 font-mono">[02]</span>
+                  <span className="text-amber-400 font-mono">[02]</span>
                   <span>PRODUCTION STANDARDS</span>
                 </div>
-                <div className="text-neutral-400">Modern React, Next.js & Tailwind CSS. Clean, maintainable code you own 100% from day one.</div>
+                <div className="text-neutral-400">Modern React, Next.js &amp; Tailwind CSS. Clean, maintainable code you own 100% from day one.</div>
               </div>
             </div>
           </div>
@@ -100,7 +108,7 @@ export const AboutSection: React.FC = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

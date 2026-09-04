@@ -20,13 +20,13 @@ export const Footer: React.FC = () => {
                   src="/logo.png"
                   alt="Beyond Limits Studio"
                   onError={() => setLogoError(true)}
-                  className="h-14 sm:h-16 w-auto max-w-[260px] object-contain drop-shadow-[0_2px_12px_rgba(234,179,8,0.12)]"
+                  className="h-11 sm:h-13 md:h-15 w-auto max-w-[170px] sm:max-w-[210px] object-contain drop-shadow-[0_2px_14px_rgba(245,158,11,0.18)]"
                 />
               ) : (
                 <img
                   src="/logo.svg"
                   alt="Beyond Limits Studio"
-                  className="h-14 sm:h-16 w-auto max-w-[260px] object-contain"
+                  className="h-11 sm:h-13 md:h-15 w-auto max-w-[170px] sm:max-w-[210px] object-contain"
                 />
               )}
             </div>

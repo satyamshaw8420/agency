@@ -24,10 +24,10 @@ export const ProjectEstimator: React.FC<ProjectEstimatorProps> = ({
   const [copied, setCopied] = useState(false);
 
   const availableDisciplines = [
-    { id: 'Product Design', label: '0→1 Product Design & UI/UX', basePrice: 1200, weeks: 2 },
-    { id: 'Brand Identity', label: 'Brand Visuals & Design System', basePrice: 800, weeks: 1 },
-    { id: 'Engineering', label: 'Modern Web Engineering (React/Next)', basePrice: 1800, weeks: 2 },
-    { id: 'AI Systems', label: 'AI Interfaces & Dynamic Workflows', basePrice: 1500, weeks: 2 },
+    { id: 'Product Design', label: '0→1 Product Design & UI/UX', basePrice: 14999, weeks: 2 },
+    { id: 'Brand Identity', label: 'Brand Visuals & Design System', basePrice: 9999, weeks: 1 },
+    { id: 'Engineering', label: 'Modern Web Engineering (React/Next)', basePrice: 24999, weeks: 2 },
+    { id: 'AI Systems', label: 'AI Interfaces & Dynamic Workflows', basePrice: 19999, weeks: 2 },
   ];
 
   const availablePlatforms = [
@@ -70,36 +70,33 @@ export const ProjectEstimator: React.FC<ProjectEstimatorProps> = ({
     });
 
     // Platforms add small multiplier
-    const platformFactor = 1 + (platforms.length - 1) * 0.12;
+    const platformFactor = 1 + (platforms.length - 1) * 0.1;
     totalBase = totalBase * platformFactor;
 
     // Timeline modifier
     let timeMultiplier = 1.0;
     let estimatedWeeksText = '';
     if (timelineSpeed === 'rush') {
-      timeMultiplier = 1.2;
+      timeMultiplier = 1.15;
       estimatedWeeksText = `1 to 2 Weeks (Fast Track)`;
     } else if (timelineSpeed === 'standard') {
       timeMultiplier = 1.0;
       estimatedWeeksText = `${maxWeeks} to ${maxWeeks + 1} Weeks (Standard)`;
     } else {
-      timeMultiplier = 0.9;
+      timeMultiplier = 0.92;
       estimatedWeeksText = `${maxWeeks + 1} to ${maxWeeks + 2} Weeks (Flexible)`;
     }
 
     const calculatedPrice = Math.round(totalBase * timeMultiplier);
-    const minRange = Math.round(calculatedPrice * 0.9);
+    const minRange = Math.round(calculatedPrice * 0.92);
     const maxRange = Math.round(calculatedPrice * 1.15);
 
     const formatCost = (val: number) => {
-      if (val >= 1000) {
-        return `$${(val / 1000).toFixed(1)}k`;
-      }
-      return `$${val}`;
+      return `₹${val.toLocaleString('en-IN')}`;
     };
 
     return {
-      priceRange: `${formatCost(minRange)} — ${formatCost(maxRange)} USD`,
+      priceRange: `${formatCost(minRange)} — ${formatCost(maxRange)}`,
       estimatedWeeks: estimatedWeeksText,
       calculatedPrice,
     };
@@ -176,14 +173,14 @@ Notes: ${notes || 'N/A'}`;
                       onClick={() => toggleDiscipline(d.id)}
                       className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between text-xs ${
                         isChecked
-                          ? 'border-neutral-200 bg-neutral-800/80 text-white font-medium'
+                          ? 'border-amber-500/70 bg-amber-500/10 text-neutral-100 font-medium shadow-[0_0_15px_rgba(245,158,11,0.12)]'
                           : 'border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700'
                       }`}
                     >
                       <span>{d.label}</span>
                       <div
                         className={`w-4 h-4 rounded border flex items-center justify-center ${
-                          isChecked ? 'bg-neutral-100 border-neutral-100' : 'border-neutral-700'
+                          isChecked ? 'bg-amber-400 border-amber-400' : 'border-neutral-700'
                         }`}
                       >
                         {isChecked && <CheckCircle2 className="w-3.5 h-3.5 text-neutral-950" />}
@@ -208,14 +205,14 @@ Notes: ${notes || 'N/A'}`;
                       onClick={() => togglePlatform(p.id)}
                       className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between text-xs ${
                         isChecked
-                          ? 'border-neutral-200 bg-neutral-800/80 text-white font-medium'
+                          ? 'border-amber-500/70 bg-amber-500/10 text-neutral-100 font-medium shadow-[0_0_15px_rgba(245,158,11,0.12)]'
                           : 'border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700'
                       }`}
                     >
                       <span>{p.label}</span>
                       <div
                         className={`w-4 h-4 rounded border flex items-center justify-center ${
-                          isChecked ? 'bg-neutral-100 border-neutral-100' : 'border-neutral-700'
+                          isChecked ? 'bg-amber-400 border-amber-400' : 'border-neutral-700'
                         }`}
                       >
                         {isChecked && <CheckCircle2 className="w-3.5 h-3.5 text-neutral-950" />}
@@ -242,7 +239,7 @@ Notes: ${notes || 'N/A'}`;
                     onClick={() => setTimelineSpeed(tier.id as any)}
                     className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
                       timelineSpeed === tier.id
-                        ? 'border-neutral-200 bg-neutral-800 text-white'
+                        ? 'border-amber-500/70 bg-amber-500/10 text-white shadow-[0_0_15px_rgba(245,158,11,0.1)]'
                         : 'border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700'
                     }`}
                   >
@@ -254,12 +251,13 @@ Notes: ${notes || 'N/A'}`;
             </div>
 
             {/* Calculated Results Banner */}
-            <div className="p-5 rounded-xl border border-neutral-700 bg-neutral-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="p-6 rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-500/10 via-neutral-900 to-neutral-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_0_35px_rgba(245,158,11,0.12)]">
               <div>
-                <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider">
+                <span className="text-[11px] font-mono text-amber-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                   Estimated Studio Investment
                 </span>
-                <div className="font-display text-2xl sm:text-3xl font-bold text-emerald-400 mt-0.5">
+                <div className="font-display text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 bg-clip-text text-transparent mt-1">
                   {estimation.priceRange}
                 </div>
               </div>
@@ -268,7 +266,7 @@ Notes: ${notes || 'N/A'}`;
                 <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider">
                   Target Duration
                 </span>
-                <div className="font-mono text-base font-semibold text-neutral-200 mt-0.5">
+                <div className="font-mono text-base font-bold text-neutral-200 mt-1">
                   {estimation.estimatedWeeks}
                 </div>
               </div>
@@ -324,7 +322,7 @@ Notes: ${notes || 'N/A'}`;
               <button
                 id="submit-estimator-inquiry-btn"
                 type="submit"
-                className="px-6 py-3 rounded-xl bg-neutral-100 text-neutral-950 font-semibold text-xs hover:bg-neutral-200 transition-colors shadow-lg cursor-pointer"
+                className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-500 text-neutral-950 font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all shadow-[0_0_25px_rgba(245,158,11,0.3)] active:scale-95 cursor-pointer"
               >
                 Submit Estimate & Request Call
               </button>
