@@ -1,4 +1,5 @@
 import React, { useState, memo } from 'react';
+import { motion } from 'motion/react';
 import { ChevronDown, HelpCircle, MessageSquareQuote } from 'lucide-react';
 
 interface FAQItem {
@@ -48,7 +49,14 @@ export const FAQSection: React.FC<{ onOpenContact: () => void }> = memo(({ onOpe
   };
 
   return (
-    <section id="faq-section" className="py-24 border-t border-neutral-800/80 bg-[#050811] relative overflow-hidden transform-gpu">
+    <motion.section
+      id="faq-section"
+      initial={{ opacity: 0, y: 35 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+      className="py-24 border-t border-neutral-800/80 bg-[#050811] relative overflow-hidden transform-gpu"
+    >
       {/* Ambient background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-sky-950/20 rounded-full blur-3xl pointer-events-none" />
 
@@ -66,18 +74,22 @@ export const FAQSection: React.FC<{ onOpenContact: () => void }> = memo(({ onOpe
           </p>
         </div>
 
-        {/* Accordion List */}
+        {/* Accordion List with staggered whileInView */}
         <div className="space-y-4">
           {FAQ_ITEMS.map((item, index) => {
             const isOpen = openIndex === index;
             return (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.6, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className="velvet-card rounded-2xl border border-neutral-800/80 overflow-hidden transition-all duration-300 transform-gpu will-change-transform"
               >
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full px-6 py-5 sm:px-8 sm:py-6 flex items-center justify-between text-left cursor-pointer hover:bg-neutral-900/40 transition-colors"
+                  className="w-full px-6 py-5 sm:px-8 sm:py-6 flex items-center justify-between text-left cursor-pointer hover:bg-neutral-900/40 transition-all duration-150 active:scale-[0.99] select-none"
                 >
                   <div className="flex items-center gap-4 pr-4">
                     <span className="text-xs font-mono text-sky-400/80">0{index + 1}</span>
@@ -102,12 +114,12 @@ export const FAQSection: React.FC<{ onOpenContact: () => void }> = memo(({ onOpe
                     </p>
                   </div>
                 )}
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
-        {/* Bottom CTA Box */}
+        {/* Bottom CTA Box with tactile button */}
         <div className="mt-16 rounded-2xl velvet-card p-8 sm:p-10 border border-sky-500/20 text-center flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl transform-gpu">
           <div className="text-left">
             <h3 className="font-display text-xl font-bold text-neutral-100">
@@ -119,14 +131,14 @@ export const FAQSection: React.FC<{ onOpenContact: () => void }> = memo(({ onOpe
           </div>
           <button
             onClick={onOpenContact}
-            className="px-6 py-3 rounded-xl bg-sky-500 text-[#050811] font-bold text-xs uppercase tracking-wider hover:bg-sky-400 transition-all flex items-center gap-2 shrink-0 shadow-lg cursor-pointer transform-gpu"
+            className="px-6 py-3 rounded-xl bg-sky-500 text-[#050811] font-bold text-xs uppercase tracking-wider hover:bg-sky-400 transition-all duration-150 flex items-center gap-2 shrink-0 shadow-lg cursor-pointer transform-gpu active:scale-95 select-none"
           >
             <MessageSquareQuote className="w-4 h-4" />
             <span>Ask Us Directly</span>
           </button>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 });
 

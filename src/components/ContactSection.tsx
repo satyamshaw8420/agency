@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { ArrowUpRight, CheckCircle2, Clock, Copy, ExternalLink, Loader2, Mail, MapPin, MessageSquare, Send, Sparkles } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
@@ -112,11 +113,24 @@ ${formData.message}
   };
 
   return (
-    <section id="contact-section" className="py-24 border-t border-neutral-800/80 bg-neutral-950 relative overflow-hidden">
+    <motion.section
+      id="contact-section"
+      initial={{ opacity: 0, y: 35 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+      className="py-24 border-t border-neutral-800/80 bg-neutral-950 relative overflow-hidden transform-gpu"
+    >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Column: Direct contact info & studio locations */}
-          <div className="lg:col-span-5 space-y-10">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 space-y-10"
+          >
             <div>
               <span className="text-xs font-mono uppercase tracking-widest text-emerald-400">
                 Direct Contact
@@ -148,7 +162,7 @@ ${formData.message}
                 </div>
                 <button
                   onClick={handleCopyEmail}
-                  className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 text-xs font-mono flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 text-xs font-mono flex items-center gap-1.5 transition-all duration-150 cursor-pointer active:scale-90 select-none"
                   title="Copy email to clipboard"
                 >
                   <Copy className="w-3.5 h-3.5" />
@@ -190,10 +204,16 @@ ${formData.message}
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Inquiry Form */}
-          <div className="lg:col-span-7 rounded-2xl velvet-card p-8 sm:p-10 shadow-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 rounded-2xl velvet-card p-8 sm:p-10 shadow-2xl transform-gpu will-change-transform"
+          >
             {!submitted ? (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -326,7 +346,7 @@ ${formData.message}
                     id="submit-contact-form-btn"
                     type="submit"
                     disabled={isSending}
-                    className="w-full py-4 rounded-xl bg-neutral-100 text-neutral-950 font-bold text-xs uppercase tracking-wider hover:bg-neutral-200 disabled:opacity-60 transition-all flex items-center justify-center gap-2 shadow-xl active:scale-[0.99] cursor-pointer"
+                    className="w-full py-4 rounded-xl bg-neutral-100 text-neutral-950 font-bold text-xs uppercase tracking-wider hover:bg-white disabled:opacity-60 transition-all duration-150 flex items-center justify-center gap-2 shadow-xl active:scale-[0.97] cursor-pointer select-none transform-gpu"
                   >
                     {isSending ? (
                       <>
@@ -362,13 +382,13 @@ ${formData.message}
                   </p>
                 </div>
 
-                {/* Direct quick action buttons */}
+                {/* Direct quick action buttons with haptic feedback */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 max-w-md mx-auto">
                   <a
                     href={getGmailWebUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto flex-1 px-5 py-3 rounded-xl bg-emerald-500 text-neutral-950 font-bold text-xs uppercase tracking-wider hover:bg-emerald-400 transition-all flex items-center justify-center gap-2 cursor-pointer no-underline"
+                    className="w-full sm:w-auto flex-1 px-5 py-3 rounded-xl bg-emerald-500 text-neutral-950 font-bold text-xs uppercase tracking-wider hover:bg-emerald-400 transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer no-underline active:scale-95 transform-gpu select-none shadow-md"
                   >
                     <Mail className="w-4 h-4" />
                     <span>Open in Gmail</span>
@@ -378,7 +398,7 @@ ${formData.message}
                     href={getWhatsAppUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-700 text-neutral-200 font-medium text-xs hover:border-emerald-500 hover:text-white transition-all flex items-center justify-center gap-1.5 cursor-pointer no-underline"
+                    className="w-full sm:w-auto px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-700 text-neutral-200 font-medium text-xs hover:border-emerald-500 hover:text-white transition-all duration-150 flex items-center justify-center gap-1.5 cursor-pointer no-underline active:scale-95 transform-gpu select-none"
                   >
                     <MessageSquare className="w-4 h-4 text-emerald-400" />
                     <span>WhatsApp</span>
@@ -400,16 +420,16 @@ ${formData.message}
                       });
                       setIsCustomBudget(false);
                     }}
-                    className="px-5 py-2 rounded-lg border border-neutral-800 text-xs font-mono text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors cursor-pointer"
+                    className="px-5 py-2 rounded-lg border border-neutral-800 text-xs font-mono text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all duration-150 cursor-pointer active:scale-95 select-none"
                   >
                     ← Edit or Submit Another Inquiry
                   </button>
                 </div>
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

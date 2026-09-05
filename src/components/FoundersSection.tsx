@@ -9,7 +9,7 @@ export const FoundersSection: React.FC = memo(() => {
       role: 'Co-Founder & Full-Stack Creative Engineer',
       bio: 'Specializes in high-performance React architecture, frontend engineering, and seamless web experiences. Obsessed with sub-second speeds and bulletproof code.',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-      portfolioUrl: 'https://github.com/satyamshaw8420',
+      portfolioUrl: 'https://satyamshaw.vercel.app/',
       badge: 'Lead Architect',
     },
     {
@@ -58,9 +58,9 @@ export const FoundersSection: React.FC = memo(() => {
               key={idx}
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="velvet-card rounded-2xl p-8 border border-neutral-800/90 hover:border-amber-500/40 transition-all duration-500 flex flex-col justify-between group shadow-xl hover:shadow-[0_10px_35px_rgba(245,158,11,0.08)] transform-gpu will-change-transform"
+              className="velvet-card rounded-2xl p-8 border border-neutral-800/90 hover:border-amber-500/40 transition-all duration-300 flex flex-col justify-between group shadow-xl hover:shadow-[0_10px_35px_rgba(245,158,11,0.08)] transform-gpu will-change-transform active:scale-[0.98]"
             >
               <div>
                 <div className="flex items-start justify-between mb-6">
@@ -71,6 +71,7 @@ export const FoundersSection: React.FC = memo(() => {
                       width="80"
                       height="80"
                       loading="lazy"
+                      decoding="async"
                       className="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl object-cover border border-amber-500/30 shadow-md group-hover:border-amber-400/60 transition-colors transform-gpu"
                     />
                     <div>
@@ -86,7 +87,7 @@ export const FoundersSection: React.FC = memo(() => {
                     href={founder.portfolioUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-xl bg-neutral-900/80 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-amber-300 hover:border-amber-500/50 transition-all shadow-sm group/btn transform-gpu"
+                    className="w-10 h-10 rounded-xl bg-neutral-900/80 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-amber-300 hover:border-amber-500/50 transition-all duration-150 shadow-sm group/btn transform-gpu active:scale-90"
                     title="Visit Portfolio"
                   >
                     <Globe className="w-4 h-4 group-hover/btn:scale-110 transition-transform text-neutral-300 group-hover/btn:text-amber-400" />

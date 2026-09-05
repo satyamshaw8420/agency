@@ -1,8 +1,9 @@
 import React, { useState, useMemo, memo } from 'react';
 import { motion } from 'motion/react';
-import { ArrowUpRight, ExternalLink, Layers, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import { CASE_STUDIES } from '../data';
 import { CaseStudy, WorkCategory } from '../types';
+import { LazyImage } from './LazyImage';
 
 interface WorkShowcaseProps {
   onSelectCaseStudy: (caseStudy: CaseStudy) => void;
@@ -29,7 +30,7 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = memo(({ onSelectCaseStu
       initial={{ opacity: 0, y: 35 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
       className="py-24 border-t border-neutral-800/80 bg-neutral-950 transform-gpu"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
@@ -48,14 +49,14 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = memo(({ onSelectCaseStu
             </p>
           </div>
 
-          {/* Filter Pills */}
+          {/* Filter Pills with haptic tactile scaling */}
           <div className="flex flex-wrap items-center gap-2">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 id={`filter-btn-${cat.id}`}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer transform-gpu ${
+                className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-150 cursor-pointer active:scale-95 transform-gpu select-none ${
                   activeCategory === cat.id
                     ? 'bg-neutral-100 text-neutral-950 font-semibold shadow-sm'
                     : 'bg-neutral-900 text-neutral-400 hover:text-neutral-200 border border-neutral-800/80 hover:border-neutral-700'
@@ -73,36 +74,37 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = memo(({ onSelectCaseStu
             <motion.div
               key={project.id}
               id={`case-study-card-${project.id}`}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 35 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.8, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
               className="group rounded-2xl border border-neutral-800/90 bg-neutral-900/40 hover:bg-neutral-900/70 overflow-hidden transition-all duration-500 hover:border-amber-500/30 flex flex-col justify-between shadow-xl transform-gpu will-change-transform"
             >
-              {/* Media preview container */}
+              {/* Media preview container with custom LazyImage */}
               <div
-                className="relative aspect-16/10 overflow-hidden bg-neutral-950 cursor-pointer"
+                className="relative aspect-16/10 overflow-hidden bg-neutral-950 cursor-pointer active:scale-[0.99] transition-transform duration-150"
                 onClick={() => onSelectCaseStudy(project)}
               >
-                <img
+                <LazyImage
                   src={project.image}
                   alt={project.title}
                   width="600"
                   height="375"
+                  rootMargin="250px 0px"
+                  containerClassName="w-full h-full"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out brightness-90 group-hover:brightness-100 transform-gpu"
-                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/25 to-transparent pointer-events-none" />
 
                 {/* Badge top-left */}
-                <div className="absolute top-4 left-4 flex items-center gap-2">
+                <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
                   <span className="px-3 py-1 rounded-full text-[11px] font-mono uppercase bg-neutral-950/80 backdrop-blur-md text-neutral-200 border border-neutral-700/60 font-semibold">
                     {project.categoryLabel}
                   </span>
                 </div>
 
                 {/* Client label overlay bottom */}
-                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
+                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between z-10">
                   <div>
                     <span className="text-[11px] text-emerald-400/90 uppercase tracking-wider font-mono font-medium">
                       {project.client}
@@ -138,7 +140,7 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = memo(({ onSelectCaseStu
                   </div>
                 </div>
 
-                {/* Direct Action Buttons */}
+                {/* Direct Action Buttons with tactile haptic scale */}
                 <div className="mt-6 pt-5 border-t border-neutral-800/80 flex items-center gap-3">
                   {project.liveUrl && (
                     <a
@@ -146,7 +148,7 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = memo(({ onSelectCaseStu
                       target="_blank"
                       rel="noopener noreferrer"
                       id={`visit-live-site-${project.id}`}
-                      className="flex-1 py-2.5 px-3.5 rounded-xl bg-neutral-100 text-neutral-950 text-xs font-bold uppercase tracking-wider hover:bg-neutral-200 transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-95 no-underline transform-gpu"
+                      className="flex-1 py-2.5 px-3.5 rounded-xl bg-neutral-100 text-neutral-950 text-xs font-bold uppercase tracking-wider hover:bg-white transition-all duration-150 flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.96] no-underline transform-gpu select-none"
                     >
                       <span>Visit Live Site</span>
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -156,7 +158,7 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = memo(({ onSelectCaseStu
                   <button
                     type="button"
                     onClick={() => onSelectCaseStudy(project)}
-                    className="py-2.5 px-4 rounded-xl bg-neutral-900 border border-neutral-800 text-neutral-300 text-xs font-semibold uppercase tracking-wider hover:bg-neutral-800 hover:text-white transition-colors cursor-pointer transform-gpu"
+                    className="py-2.5 px-4 rounded-xl bg-neutral-900 border border-neutral-800 text-neutral-300 text-xs font-semibold uppercase tracking-wider hover:bg-neutral-800 hover:text-white transition-all duration-150 cursor-pointer active:scale-[0.96] transform-gpu select-none"
                   >
                     Details
                   </button>

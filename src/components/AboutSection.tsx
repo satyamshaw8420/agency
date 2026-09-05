@@ -56,7 +56,14 @@ export const AboutSection: React.FC = memo(() => {
         <div className="py-16 border-b border-neutral-800/80">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {STUDIO_METRICS.map((metric, idx) => (
-              <div key={idx} className="flex flex-col transform-gpu will-change-transform">
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col transform-gpu will-change-transform"
+              >
                 <span className="font-display text-4xl sm:text-5xl font-extrabold text-neutral-100 tracking-tight">
                   {metric.value}
                 </span>
@@ -66,7 +73,7 @@ export const AboutSection: React.FC = memo(() => {
                 <span className="mt-1 text-xs text-neutral-400 font-mono leading-relaxed">
                   {metric.detail}
                 </span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -85,9 +92,13 @@ export const AboutSection: React.FC = memo(() => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {STUDIO_STANDARDS.map((std, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="p-5 rounded-xl border border-neutral-800/80 bg-neutral-900/30 hover:border-neutral-700 transition-all flex flex-col justify-between transform-gpu will-change-transform"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.6, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="p-5 rounded-xl border border-neutral-800/80 bg-neutral-900/30 hover:border-neutral-700 transition-all duration-150 flex flex-col justify-between transform-gpu will-change-transform active:scale-[0.99]"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
@@ -103,7 +114,7 @@ export const AboutSection: React.FC = memo(() => {
                     {std.detail}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

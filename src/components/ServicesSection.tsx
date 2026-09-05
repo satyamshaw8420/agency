@@ -53,16 +53,20 @@ export const ServicesSection: React.FC<ServicesSectionProps> = memo(({ onSelectS
 
         {/* Master Service Navigation & Detailed Inspector */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Service Selector List */}
+          {/* Service Selector List with staggered whileInView and tactile scale */}
           <div className="lg:col-span-5 flex flex-col gap-3">
-            {SERVICES.map((service) => {
+            {SERVICES.map((service, index) => {
               const isSelected = service.id === selectedServiceId;
               return (
-                <div
+                <motion.div
                   key={service.id}
                   id={`service-tab-${service.id}`}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
                   onClick={() => setSelectedServiceId(service.id)}
-                  className={`p-6 rounded-2xl border transition-all cursor-pointer text-left transform-gpu will-change-transform ${
+                  className={`p-6 rounded-2xl border transition-all duration-150 cursor-pointer text-left transform-gpu will-change-transform active:scale-[0.98] select-none ${
                     isSelected
                       ? 'border-neutral-700 bg-neutral-900/90 shadow-xl'
                       : 'border-neutral-800/70 bg-neutral-900/30 hover:border-neutral-700/80 hover:bg-neutral-900/60'
@@ -77,7 +81,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = memo(({ onSelectS
                     </div>
                     <span
                       className={`text-xs font-mono transition-colors ${
-                        isSelected ? 'text-neutral-200' : 'text-neutral-500'
+                        isSelected ? 'text-neutral-200 font-semibold' : 'text-neutral-500'
                       }`}
                     >
                       {isSelected ? 'ACTIVE VIEW' : 'EXPAND'}
@@ -91,13 +95,19 @@ export const ServicesSection: React.FC<ServicesSectionProps> = memo(({ onSelectS
                   <p className="mt-2 text-xs text-neutral-400 leading-relaxed">
                     {service.shortDesc}
                   </p>
-                </div>
+                </motion.div>
               );
             })}
           </div>
 
           {/* Detailed Inspector Card */}
-          <div className="lg:col-span-7 rounded-2xl border border-neutral-800 bg-neutral-900/60 p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden transform-gpu">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 rounded-2xl border border-neutral-800 bg-neutral-900/60 p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden transform-gpu will-change-transform"
+          >
             <div>
               <div className="flex items-center justify-between pb-6 border-b border-neutral-800">
                 <div className="flex items-center gap-3">
@@ -113,7 +123,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = memo(({ onSelectS
                 <button
                   id={`inquire-service-btn-${selectedService.id}`}
                   onClick={() => onSelectService(selectedService.title)}
-                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-neutral-100 text-neutral-950 text-xs font-semibold hover:bg-neutral-200 transition-colors cursor-pointer transform-gpu"
+                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-neutral-100 text-neutral-950 text-xs font-semibold hover:bg-white transition-all duration-150 cursor-pointer active:scale-95 transform-gpu select-none"
                 >
                   <span>Inquire Now</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -169,7 +179,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = memo(({ onSelectS
               <span>Standard Engagement: 4 to 12 Week Sprints</span>
               <span className="text-neutral-500">Fixed-Fee or Milestone Retainer</span>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </motion.section>

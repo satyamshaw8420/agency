@@ -120,7 +120,7 @@ export const Navbar: React.FC<NavbarProps> = memo(({ onOpenEstimator, onOpenCont
         <button
           id="mobile-menu-toggle-btn"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-xl border border-neutral-800 bg-neutral-900/60 text-neutral-300 hover:text-white hover:border-amber-500/50 transition-colors focus:outline-none cursor-pointer transform-gpu"
+          className="md:hidden p-2 rounded-xl border border-neutral-800 bg-neutral-900/60 text-neutral-300 hover:text-white hover:border-amber-500/50 transition-all duration-150 focus:outline-none cursor-pointer transform-gpu active:scale-90 select-none"
           aria-label="Toggle Navigation Menu"
         >
           {mobileMenuOpen ? <X className="w-5 h-5 text-amber-400" /> : <Menu className="w-5 h-5" />}
@@ -133,16 +133,16 @@ export const Navbar: React.FC<NavbarProps> = memo(({ onOpenEstimator, onOpenCont
           id="mobile-nav-panel"
           className="md:hidden border-b border-neutral-800 bg-neutral-950/95 backdrop-blur-xl px-6 py-6 transition-all transform-gpu will-change-transform"
         >
-          <div className="flex flex-col gap-4 text-base font-medium text-neutral-200">
+          <div className="flex flex-col gap-3 text-base font-medium text-neutral-200">
             <button
               onClick={() => scrollTo('work-section')}
-              className="text-left py-2 hover:text-white cursor-pointer"
+              className="text-left py-2.5 px-3 rounded-lg hover:bg-neutral-900/60 hover:text-white cursor-pointer active:scale-[0.97] transition-all transform-gpu select-none"
             >
               Selected Work (Live Portfolio)
             </button>
             <button
               onClick={() => scrollTo('services-section')}
-              className="text-left py-2 hover:text-white cursor-pointer"
+              className="text-left py-2.5 px-3 rounded-lg hover:bg-neutral-900/60 hover:text-white cursor-pointer active:scale-[0.97] transition-all transform-gpu select-none"
             >
               Capabilities & Disciplines
             </button>
@@ -151,14 +151,14 @@ export const Navbar: React.FC<NavbarProps> = memo(({ onOpenEstimator, onOpenCont
                 setMobileMenuOpen(false);
                 onOpenEstimator();
               }}
-              className="text-left py-2 flex items-center gap-2 text-neutral-200 hover:text-white cursor-pointer"
+              className="text-left py-2.5 px-3 rounded-lg flex items-center gap-2 text-neutral-200 hover:bg-neutral-900/60 hover:text-white cursor-pointer active:scale-[0.97] transition-all transform-gpu select-none"
             >
               <Sparkles className="w-4 h-4 text-neutral-400" />
               Interactive Project Estimator
             </button>
             <button
               onClick={() => scrollTo('about-section')}
-              className="text-left py-2 hover:text-white cursor-pointer"
+              className="text-left py-2.5 px-3 rounded-lg hover:bg-neutral-900/60 hover:text-white cursor-pointer active:scale-[0.97] transition-all transform-gpu select-none"
             >
               Studio & Standards
             </button>
@@ -168,7 +168,7 @@ export const Navbar: React.FC<NavbarProps> = memo(({ onOpenEstimator, onOpenCont
                   setMobileMenuOpen(false);
                   onOpenContact();
                 }}
-                className="w-full text-center py-3 rounded-xl bg-neutral-100 text-neutral-950 font-semibold"
+                className="w-full text-center py-3.5 rounded-xl bg-neutral-100 text-neutral-950 font-semibold active:scale-[0.97] transition-all duration-150 transform-gpu cursor-pointer select-none shadow-md"
               >
                 Start a Project
               </button>
